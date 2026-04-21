@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>StudentFirst — Government Policies for Students</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --white: #ffffff;
+    --cream: #faf9f6;
+    --navy: #0d1b3e;
+    --blue: #1a56e8;
+    --blue-light: #e8effe;
+    --teal: #00b8a3;
+    --amber: #f7a825;
+    --coral: #f04e37;
+    --purple: #7c3aed;
+    --green: #22c55e;
+    --text: #1a1a2e;
+    --muted: #6b7280;
+    --border: rgba(0,0,0,0.08);
+    --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    --shadow-lg: 0 16px 64px rgba(0,0,0,0.12);
+    --radius: 20px;
+    --radius-sm: 12px;
+    --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  [data-theme="dark"] {
+    --white: #0f172a;
+    --cream: #1e293b;
+    --navy: #e2e8f0;
+    --blue: #60a5fa;
+    --blue-light: #1e3a5f;
+    --teal: #2dd4bf;
+    --amber: #fbbf24;
+    --coral: #f87171;
+    --purple: #a78bfa;
+    --green: #4ade80;
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --border: rgba(255,255,255,0.08);
+    --shadow: 0 4px 24px rgba(0,0,0,0.3);
+    --shadow-lg: 0 16px 64px rgba(0,0,0,0.4);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    cursor: none;
+    overflow-x: hidden;
+    transition: background 0.3s, color 0.3s;
+  }
+  /* ── Custom Cursor ── */
+  #cursor {
+    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
+    width: 14px; height: 14px;
+    background: var(--blue);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.25s ease, height 0.25s ease, background 0.25s ease, opacity 0.25s ease;
+    mix-blend-mode: multiply;
+  }
+  #cursor-ring {
+    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998;
+    width: 40px; height: 40px;
+    border: 2px solid var(--blue);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease, border-color 0.3s ease;
+    opacity: 0.5;
+  }
+  body.hovering #cursor { width: 24px; height: 24px; background: var(--coral); }
+  body.hovering #cursor-ring { width: 64px; height: 64px; border-color: var(--coral); opacity: 0.3; }
+  /* ── Navbar ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s;
+  }
+  [data-theme="dark"] nav { background: rgba(15,23,42,0.85); }
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem; font-weight: 900;
+    color: var(--blue);
+    letter-spacing: -0.03em;
+  }
+  .nav-logo span { color: var(--coral); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text); font-size: 0.9rem; font-weight: 500; opacity: 0.7; transition: opacity 0.2s; }
+  .nav-links a:hover { opacity: 1; }
+  .nav-right { display: flex; align-items: center; gap: 1rem; }
+  .dark-toggle {
+    background: var(--cream); border: 1px solid var(--border);
+    border-radius: 30px; padding: 0.4rem 0.8rem;
+    cursor: none; font-size: 0.85rem; font-weight: 500;
+    color: var(--text); transition: var(--transition);
+  }
+  .dark-toggle:hover { background: var(--blue); color: white; }
+  /* ── Hero ── */
+  .hero {
+    min-height: 100vh;
+    padding: 8rem 2rem 4rem;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    background: var(--white);
+  }
+  .hero-bg {
+    position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+  }
+  .hero-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.12;
+    animation: blobFloat 8s ease-in-out infinite;
+  }
+  .blob1 { width: 600px; height: 600px; background: var(--blue); top: -200px; right: -100px; }
+  .blob2 { width: 400px; height: 400px; background: var(--teal); bottom: -100px; left: -100px; animation-delay: -3s; }
+  .blob3 { width: 300px; height: 300px; background: var(--amber); top: 40%; left: 40%; animation-delay: -5s; opacity: 0.08; }
+  @keyframes blobFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -30px) scale(1.05); }
+    66% { transform: translate(-20px, 20px) scale(0.95); }
+  }
+  /* Grid dots background */
+  .hero-dots {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(26,86,232,0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+  .hero-content {
+    position: relative; z-index: 2; max-width: 1200px; width: 100%;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  .hero-text h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+  }
+  .hero-text h1 em { font-style: italic; color: var(--blue); }
+  .hero-text p {
+    font-size: 1.1rem; color: var(--muted); line-height: 1.7;
+    max-width: 480px; margin-bottom: 2rem;
+  }
+  .hero-badges { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .badge {
+    padding: 0.4rem 1rem; border-radius: 30px;
+    font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .badge-blue { background: var(--blue-light); color: var(--blue); }
+  .badge-teal { background: rgba(0,184,163,0.12); color: var(--teal); }
+  .badge-amber { background: rgba(247,168,37,0.12); color: var(--amber); }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--blue); color: white;
+    padding: 0.85rem 2rem; border-radius: 50px;
+    font-weight: 600; font-size: 0.95rem;
+    text-decoration: none; border: none; cursor: none;
+    transition: var(--transition);
+    box-shadow: 0 8px 32px rgba(26,86,232,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(26,86,232,0.4); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: transparent; color: var(--text);
+    padding: 0.85rem 2rem; border-radius: 50px;
+    font-weight: 600; font-size: 0.95rem;
+    text-decoration: none; border: 2px solid var(--border);
+    cursor: none; transition: var(--transition);
+  }
+  .btn-secondary:hover { border-color: var(--blue); color: var(--blue); }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  /* ── Students SVG Scene ── */
+  .students-scene {
+    position: relative; display: flex; justify-content: center; align-items: flex-end;
+    height: 420px;
+  }
+  .student-wrap {
+    position: absolute;
+    animation: studentFloat 4s ease-in-out infinite;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.1));
+  }
+  .sw1 { left: 0; bottom: 0; animation-delay: 0s; }
+  .sw2 { left: 50%; transform: translateX(-50%); bottom: 20px; animation-delay: -1.3s; z-index: 2; }
+  .sw3 { right: 0; bottom: 0; animation-delay: -2.6s; }
+  @keyframes studentFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .sw2 { animation-name: studentFloat2; }
+  @keyframes studentFloat2 {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-12px); }
+  }
+  /* ── Stats Bar ── */
+  .stats-bar {
+    background: var(--navy);
+    color: white; padding: 2rem;
+    display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;
+  }
+  [data-theme="dark"] .stats-bar { background: #1e293b; }
+  .stat-item { text-align: center; }
+  .stat-number {
+    font-family: 'Fraunces', serif;
+    font-size: 2.2rem; font-weight: 900;
+    color: var(--amber);
+  }
+  .stat-label { font-size: 0.85rem; opacity: 0.7; margin-top: 0.25rem; }
+  /* ── Search + Filter ── */
+  .search-section {
+    padding: 4rem 2rem 2rem;
+    max-width: 900px; margin: 0 auto;
+    text-align: center;
+  }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900; letter-spacing: -0.02em;
+    margin-bottom: 0.75rem; color: var(--text);
+  }
+  .section-sub { font-size: 1rem; color: var(--muted); margin-bottom: 2.5rem; }
+  .search-box {
+    display: flex; align-items: center;
+    background: var(--cream); border: 2px solid var(--border);
+    border-radius: 50px; padding: 0.6rem 1.5rem; gap: 0.75rem;
+    max-width: 560px; margin: 0 auto 2rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .search-box:focus-within { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(26,86,232,0.1); }
+  .search-box svg { color: var(--muted); flex-shrink: 0; }
+  .search-box input {
+    border: none; background: transparent; font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; color: var(--text); width: 100%; outline: none;
+  }
+  .search-box input::placeholder { color: var(--muted); }
+  .filter-chips { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
+  .chip {
+    padding: 0.5rem 1.25rem; border-radius: 30px;
+    border: 1.5px solid var(--border); background: var(--white);
+    font-size: 0.85rem; font-weight: 500; color: var(--muted);
+    cursor: none; transition: var(--transition);
+  }
+  .chip.active, .chip:hover { background: var(--blue); color: white; border-color: var(--blue); }
+  /* ── Policies Grid ── */
+  .policies-section {
+    padding: 2rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .policies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .policy-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: var(--transition);
+    cursor: none;
+    position: relative;
+  }
+  .policy-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    border-color: transparent;
+  }
+  .card-header { padding: 1.5rem; padding-bottom: 0; }
+  .card-category-tag {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.3rem 0.75rem; border-radius: 20px;
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em;
+    margin-bottom: 1rem; text-transform: uppercase;
+  }
+  .card-icon {
+    width: 48px; height: 48px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 1rem;
+  }
+  .card-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.25rem; font-weight: 700;
+    line-height: 1.2; margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+  .card-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+  .card-body { padding: 0 1.5rem 1.5rem; }
+  .info-row { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; align-items: flex-start; }
+  .info-label {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em;
+    text-transform: uppercase; white-space: nowrap; margin-top: 0.1rem;
+    min-width: 80px; color: var(--muted);
+  }
+  .info-value { font-size: 0.85rem; color: var(--text); line-height: 1.5; }
+  .card-divider { height: 1px; background: var(--border); margin: 1rem 0; }
+  .card-footer {
+    padding: 1rem 1.5rem; border-top: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--cream);
+  }
+  .level-badges { display: flex; gap: 0.4rem; }
+  .level-badge {
+    padding: 0.2rem 0.6rem; border-radius: 8px;
+    font-size: 0.72rem; font-weight: 600;
+  }
+  .apply-btn {
+    padding: 0.5rem 1.25rem; border-radius: 30px;
+    background: var(--blue); color: white;
+    font-size: 0.85rem; font-weight: 600;
+    border: none; cursor: none; transition: var(--transition);
+    text-decoration: none;
+  }
+  .apply-btn:hover { background: #1040c0; transform: scale(1.05); }
+  /* Category color themes */
+  .cat-scholarship .card-icon { background: rgba(26,86,232,0.1); }
+  .cat-scholarship .card-category-tag { background: rgba(26,86,232,0.1); color: var(--blue); }
+  .cat-scholarship .apply-btn { background: var(--blue); }
+  .cat-skill .card-icon { background: rgba(0,184,163,0.1); }
+  .cat-skill .card-category-tag { background: rgba(0,184,163,0.1); color: var(--teal); }
+  .cat-skill .apply-btn { background: var(--teal); }
+  .cat-internship .card-icon { background: rgba(247,168,37,0.12); }
+  .cat-internship .card-category-tag { background: rgba(247,168,37,0.12); color: #b57a00; }
+  .cat-internship .apply-btn { background: var(--amber); color: #1a1a2e; }
+  .cat-digital .card-icon { background: rgba(124,58,237,0.1); }
+  .cat-digital .card-category-tag { background: rgba(124,58,237,0.1); color: var(--purple); }
+  .cat-digital .apply-btn { background: var(--purple); }
+  .cat-loan .card-icon { background: rgba(34,197,94,0.1); }
+  .cat-loan .card-category-tag { background: rgba(34,197,94,0.1); color: #15803d; }
+  .cat-loan .apply-btn { background: var(--green); color: #1a1a2e; }
+  /* School badge */
+  .lvl-school { background: rgba(26,86,232,0.1); color: var(--blue); }
+  .lvl-college { background: rgba(0,184,163,0.12); color: var(--teal); }
+  .lvl-university { background: rgba(124,58,237,0.1); color: var(--purple); }
+  /* ── No results ── */
+  .no-results { text-align: center; padding: 4rem; color: var(--muted); }
+  .no-results .emoji { font-size: 3rem; display: block; margin-bottom: 1rem; }
+  /* ── Feature Strip ── */
+  .feature-strip {
+    background: var(--cream);
+    padding: 5rem 2rem;
+    margin: 3rem 0;
+  }
+  .feature-strip-inner { max-width: 1200px; margin: 0 auto; }
+  .feature-strip-inner .section-title { text-align: center; }
+  .feature-strip-inner .section-sub { text-align: center; }
+  .features-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem; margin-top: 3rem;
+  }
+  .feature-item {
+    text-align: center; padding: 2rem;
+    background: var(--white); border-radius: var(--radius);
+    border: 1.5px solid var(--border);
+    transition: var(--transition);
+  }
+  .feature-item:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+  .feature-icon {
+    width: 56px; height: 56px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin: 0 auto 1.25rem;
+  }
+  .feature-item h3 { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .feature-item p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+  /* ── Footer ── */
+  footer {
+    background: var(--navy); color: white;
+    padding: 4rem 2rem 2rem;
+  }
+  [data-theme="dark"] footer { background: #020617; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  .footer-brand .nav-logo { color: white; font-size: 1.6rem; margin-bottom: 1rem; display: block; }
+  .footer-brand p { font-size: 0.88rem; opacity: 0.6; line-height: 1.7; max-width: 280px; }
+  .footer-col h4 { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.5; margin-bottom: 1.25rem; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.75rem; }
+  .footer-col ul li a { color: white; text-decoration: none; font-size: 0.88rem; opacity: 0.7; transition: opacity 0.2s; }
+  .footer-col ul li a:hover { opacity: 1; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 1.5rem;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-bottom p { font-size: 0.82rem; opacity: 0.5; }
+  /* ── Animations ── */
+  .fade-up {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+  .slide-in-left {
+    opacity: 0; transform: translateX(-40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .slide-in-left.visible { opacity: 1; transform: translateX(0); }
+  .scale-in {
+    opacity: 0; transform: scale(0.9);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .scale-in.visible { opacity: 1; transform: scale(1); }
+  /* delay helpers */
+  .delay-1 { transition-delay: 0.1s; }
+  .delay-2 { transition-delay: 0.2s; }
+  .delay-3 { transition-delay: 0.3s; }
+  .delay-4 { transition-delay: 0.4s; }
+  .delay-5 { transition-delay: 0.5s; }
+  /* Ripple */
+  .ripple-container { position: relative; overflow: hidden; }
+  .ripple {
+    position: absolute; border-radius: 50%;
+    transform: scale(0); animation: rippleAnim 0.6s linear;
+    background: rgba(26,86,232,0.15); pointer-events: none;
+  }
+  @keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 3px; }
+  /* Mobile */
+  @media (max-width: 768px) {
+    .hero-content { grid-template-columns: 1fr; text-align: center; }
+    .hero-text p { margin: 0 auto 2rem; }
+    .hero-badges, .hero-btns { justify-content: center; }
+    .students-scene { height: 280px; }
+    .sw1 svg, .sw3 svg { width: 100px; }
+    .sw2 svg { width: 130px; }
+    .stats-bar { gap: 2rem; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    nav .nav-links { display: none; }
+    .policies-grid { grid-template-columns: 1fr; }
+  }
+  /* Back to top */
+  .back-top {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 50;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--blue); color: white;
+    border: none; cursor: none; font-size: 1.2rem;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 16px rgba(26,86,232,0.3);
+    opacity: 0; transform: translateY(20px);
+    transition: var(--transition);
+  }
+  .back-top.visible { opacity: 1; transform: translateY(0); }
+  .back-top:hover { background: #1040c0; transform: translateY(-2px); }
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 5rem; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--navy); color: white;
+    padding: 0.75rem 1.5rem; border-radius: 30px;
+    font-size: 0.9rem; z-index: 200; opacity: 0;
+    transition: all 0.3s ease; pointer-events: none;
+  }
+  [data-theme="dark"] .toast { background: #1e293b; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  /* Parallax layers */
+  .parallax-shapes { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .p-shape {
+    position: absolute; border-radius: 50%; opacity: 0.05;
+    animation: parallaxFloat 10s ease-in-out infinite;
+  }
+  .ps1 { width: 200px; height: 200px; background: var(--coral); top: 20%; right: 10%; animation-delay: 0s; }
+  .ps2 { width: 120px; height: 120px; background: var(--teal); top: 60%; left: 5%; animation-delay: -4s; }
+  .ps3 { width: 80px; height: 80px; background: var(--amber); top: 30%; left: 20%; animation-delay: -2s; }
+  @keyframes parallaxFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-30px) rotate(5deg); }
+  }
+</style>
+</head>
+<body>
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- Toast -->
+<div class="toast" id="toast">🎉 Application link opened!</div>
+
+<!-- Back to Top -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- Navbar -->
+<nav>
+  <div class="nav-logo">Student<span>First</span></div>
+  <ul class="nav-links">
+    <li><a href="#policies">Policies</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#footer">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="dark-toggle" onclick="toggleDark()" id="themeBtn">🌙 Dark</button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <div class="hero-dots"></div>
+    <div class="hero-blob blob1"></div>
+    <div class="hero-blob blob2"></div>
+    <div class="hero-blob blob3"></div>
+    <div class="parallax-shapes">
+      <div class="p-shape ps1"></div>
+      <div class="p-shape ps2"></div>
+      <div class="p-shape ps3"></div>
+    </div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-text slide-in-left">
+      <div class="hero-badges">
+        <span class="badge badge-blue">🇮🇳 Government of India</span>
+        <span class="badge badge-teal">Free Access</span>
+        <span class="badge badge-amber">Updated 2024</span>
+      </div>
+      <h1>Policies Built for <em>Your</em> Future</h1>
+      <p>Discover scholarships, skill programs, internship schemes, digital education policies, and financial aid designed to empower every student across India.</p>
+      <div class="hero-btns">
+        <a href="#policies" class="btn-primary ripple-container">Explore Policies <span>→</span></a>
+        <a href="#about" class="btn-secondary ripple-container">Learn More</a>
+      </div>
+    </div>
+    <div class="students-scene fade-up delay-3">
+      <!-- Student 1 - School Girl (Blue outfit) -->
+      <div class="student-wrap sw1">
+        <svg width="130" height="300" viewBox="0 0 130 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Shadow -->
+          <ellipse cx="65" cy="292" rx="35" ry="8" fill="rgba(0,0,0,0.08)"/>
+          <!-- Legs -->
+          <rect x="47" y="220" width="16" height="60" rx="8" fill="#5C4033"/>
+          <rect x="67" y="220" width="16" height="60" rx="8" fill="#5C4033"/>
+          <!-- Shoes -->
+          <ellipse cx="55" cy="282" rx="12" ry="6" fill="#1a1a2e"/>
+          <ellipse cx="75" cy="282" rx="12" ry="6" fill="#1a1a2e"/>
+          <!-- Skirt -->
+          <path d="M38 200 Q65 225 92 200 L88 170 Q65 180 42 170Z" fill="#1a56e8"/>
+          <!-- Shirt -->
+          <rect x="42" y="130" width="46" height="55" rx="6" fill="#60a5fa"/>
+          <!-- Collar -->
+          <path d="M60 130 L65 145 L70 130" fill="#fff" opacity="0.6"/>
+          <!-- Book under arm -->
+          <rect x="88" y="150" width="28" height="36" rx="4" fill="#f7a825"/>
+          <rect x="88" y="155" width="28" height="3" rx="1" fill="#fff" opacity="0.4"/>
+          <rect x="88" y="161" width="28" height="3" rx="1" fill="#fff" opacity="0.4"/>
+          <!-- Left arm -->
+          <rect x="30" y="132" width="14" height="44" rx="7" fill="#60a5fa"/>
+          <ellipse cx="37" cy="178" rx="8" ry="8" fill="#FDBCB4"/>
+          <!-- Neck -->
+          <rect x="58" y="108" width="14" height="28" rx="7" fill="#FDBCB4"/>
+          <!-- Head -->
+          <ellipse cx="65" cy="92" rx="32" ry="34" fill="#FDBCB4"/>
+          <!-- Hair -->
+          <path d="M33 82 Q35 48 65 45 Q95 48 97 82 Q90 60 65 58 Q40 60 33 82Z" fill="#2C1810"/>
+          <!-- Two pigtails -->
+          <ellipse cx="35" cy="88" rx="8" ry="12" fill="#2C1810"/>
+          <ellipse cx="95" cy="88" rx="8" ry="12" fill="#2C1810"/>
+          <!-- Bow -->
+          <path d="M56 52 Q65 56 74 52 Q65 60 56 52Z" fill="#f04e37"/>
+          <!-- Eyes -->
+          <ellipse cx="55" cy="90" rx="5" ry="6" fill="white"/>
+          <ellipse cx="75" cy="90" rx="5" ry="6" fill="white"/>
+          <ellipse cx="56" cy="91" rx="3" ry="3.5" fill="#1a1a2e"/>
+          <ellipse cx="76" cy="91" rx="3" ry="3.5" fill="#1a1a2e"/>
+          <ellipse cx="57" cy="90" rx="1" ry="1" fill="white"/>
+          <ellipse cx="77" cy="90" rx="1" ry="1" fill="white"/>
+          <!-- Smile -->
+          <path d="M56 104 Q65 112 74 104" stroke="#c0726a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <!-- Cheeks -->
+          <ellipse cx="46" cy="100" rx="7" ry="5" fill="#f8a4a0" opacity="0.5"/>
+          <ellipse cx="84" cy="100" rx="7" ry="5" fill="#f8a4a0" opacity="0.5"/>
+        </svg>
+      </div>
+      <!-- Student 2 - College Boy (Center, taller, green outfit) -->
+      <div class="student-wrap sw2">
+        <svg width="150" height="340" viewBox="0 0 150 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="75" cy="332" rx="40" ry="9" fill="rgba(0,0,0,0.08)"/>
+          <!-- Legs -->
+          <rect x="52" y="250" width="18" height="70" rx="9" fill="#3d2b1f"/>
+          <rect x="80" y="250" width="18" height="70" rx="9" fill="#3d2b1f"/>
+          <!-- Shoes -->
+          <ellipse cx="61" cy="322" rx="14" ry="7" fill="#1a1a2e"/>
+          <ellipse cx="89" cy="322" rx="14" ry="7" fill="#1a1a2e"/>
+          <!-- Trousers detail -->
+          <rect x="52" y="248" width="18" height="8" rx="2" fill="#2a1e14"/>
+          <rect x="80" y="248" width="18" height="8" rx="2" fill="#2a1e14"/>
+          <!-- Shirt/Jacket -->
+          <rect x="44" y="148" width="62" height="110" rx="8" fill="#22c55e"/>
+          <!-- Collar/lapel -->
+          <path d="M68 148 L75 170 L82 148" fill="#16a34a"/>
+          <!-- Tie -->
+          <rect x="72" y="148" width="6" height="40" rx="2" fill="#f04e37"/>
+          <path d="M69 185 L75 198 L81 185Z" fill="#f04e37"/>
+          <!-- Right arm holding laptop -->
+          <rect x="106" y="150" width="14" height="50" rx="7" fill="#22c55e"/>
+          <!-- Laptop -->
+          <rect x="108" y="195" width="38" height="28" rx="4" fill="#374151"/>
+          <rect x="110" y="197" width="34" height="22" rx="2" fill="#60a5fa" opacity="0.8"/>
+          <!-- Screen glow lines -->
+          <rect x="113" y="201" width="20" height="2" rx="1" fill="white" opacity="0.6"/>
+          <rect x="113" y="206" width="14" height="2" rx="1" fill="white" opacity="0.4"/>
+          <!-- Left arm -->
+          <rect x="30" y="150" width="14" height="50" rx="7" fill="#22c55e"/>
+          <ellipse cx="37" cy="202" rx="9" ry="9" fill="#F5CBA7"/>
+          <!-- Neck -->
+          <rect x="67" y="124" width="16" height="30" rx="8" fill="#F5CBA7"/>
+          <!-- Head -->
+          <ellipse cx="75" cy="106" rx="34" ry="36" fill="#F5CBA7"/>
+          <!-- Hair -->
+          <path d="M41 96 Q44 58 75 54 Q106 58 109 96 Q100 68 75 66 Q50 68 41 96Z" fill="#1a0a00"/>
+          <!-- Fade/side hair -->
+          <rect x="41" y="88" width="8" height="20" rx="4" fill="#1a0a00"/>
+          <rect x="101" y="88" width="8" height="20" rx="4" fill="#1a0a00"/>
+          <!-- Eyes -->
+          <ellipse cx="63" cy="104" rx="5.5" ry="6.5" fill="white"/>
+          <ellipse cx="87" cy="104" rx="5.5" ry="6.5" fill="white"/>
+          <ellipse cx="64" cy="105" rx="3.5" ry="4" fill="#1a0a00"/>
+          <ellipse cx="88" cy="105" rx="3.5" ry="4" fill="#1a0a00"/>
+          <ellipse cx="65" cy="104" rx="1.2" ry="1.2" fill="white"/>
+          <ellipse cx="89" cy="104" rx="1.2" ry="1.2" fill="white"/>
+          <!-- Eyebrows -->
+          <path d="M57 96 Q63 92 70 95" stroke="#1a0a00" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M80 95 Q87 92 93 96" stroke="#1a0a00" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <!-- Big smile -->
+          <path d="M62 120 Q75 132 88 120" stroke="#b97a6a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <!-- Cheeks -->
+          <ellipse cx="52" cy="114" rx="8" ry="6" fill="#f8a4a0" opacity="0.4"/>
+          <ellipse cx="98" cy="114" rx="8" ry="6" fill="#f8a4a0" opacity="0.4"/>
+          <!-- ID card -->
+          <rect x="56" y="185" width="38" height="28" rx="4" fill="white" opacity="0.3"/>
+          <rect x="58" y="188" width="12" height="12" rx="2" fill="#60a5fa" opacity="0.6"/>
+          <rect x="74" y="189" width="16" height="2" rx="1" fill="white" opacity="0.5"/>
+          <rect x="74" y="193" width="12" height="2" rx="1" fill="white" opacity="0.3"/>
+        </svg>
+      </div>
+      <!-- Student 3 - University Girl (Purple/Red outfit) -->
+      <div class="student-wrap sw3">
+        <svg width="130" height="310" viewBox="0 0 130 310" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="65" cy="302" rx="35" ry="8" fill="rgba(0,0,0,0.08)"/>
+          <!-- Legs -->
+          <rect x="46" y="230" width="16" height="62" rx="8" fill="#FDBCB4"/>
+          <rect x="68" y="230" width="16" height="62" rx="8" fill="#FDBCB4"/>
+          <!-- Shoes/heels -->
+          <ellipse cx="54" cy="293" rx="12" ry="6" fill="#7c3aed"/>
+          <ellipse cx="76" cy="293" rx="12" ry="6" fill="#7c3aed"/>
+          <rect x="60" y="288" width="4" height="10" rx="2" fill="#5b21b6"/>
+          <rect x="73" y="288" width="4" height="10" rx="2" fill="#5b21b6"/>
+          <!-- Skirt/dress bottom -->
+          <path d="M35 200 Q65 230 95 200 L90 160 Q65 172 40 160Z" fill="#7c3aed"/>
+          <!-- Dress top -->
+          <rect x="40" y="128" width="50" height="48" rx="8" fill="#a855f7"/>
+          <!-- Belt -->
+          <rect x="38" y="168" width="54" height="8" rx="4" fill="#6d28d9"/>
+          <!-- Right arm with scroll/certificate -->
+          <rect x="90" y="132" width="13" height="44" rx="6" fill="#a855f7"/>
+          <rect x="96" y="145" width="24" height="32" rx="4" fill="#fef3c7"/>
+          <path d="M99 155 L116 155" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M99 161 L113 161" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M99 167 L110 167" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Left arm -->
+          <rect x="27" y="132" width="13" height="44" rx="6" fill="#a855f7"/>
+          <ellipse cx="34" cy="178" rx="8" ry="8" fill="#FDBCB4"/>
+          <!-- Neck -->
+          <rect x="57" y="108" width="16" height="26" rx="8" fill="#FDBCB4"/>
+          <!-- Head -->
+          <ellipse cx="65" cy="92" rx="30" ry="32" fill="#FDBCB4"/>
+          <!-- Hair - long wavy -->
+          <path d="M35 80 Q37 48 65 44 Q93 48 95 80 Q88 55 65 53 Q42 55 35 80Z" fill="#1a1a2e"/>
+          <!-- Long hair sides -->
+          <path d="M35 80 Q28 100 32 130 Q38 110 42 95Z" fill="#1a1a2e"/>
+          <path d="M95 80 Q102 100 98 130 Q92 110 88 95Z" fill="#1a1a2e"/>
+          <!-- Grad cap -->
+          <rect x="44" y="60" width="42" height="8" rx="2" fill="#1a1a2e"/>
+          <polygon points="65,44 90,60 65,58 40,60" fill="#1a1a2e"/>
+          <line x1="90" y1="60" x2="95" y2="78" stroke="#f7a825" stroke-width="2"/>
+          <circle cx="95" cy="80" r="4" fill="#f7a825"/>
+          <!-- Eyes -->
+          <ellipse cx="55" cy="90" rx="5" ry="6" fill="white"/>
+          <ellipse cx="75" cy="90" rx="5" ry="6" fill="white"/>
+          <ellipse cx="56" cy="91" rx="3" ry="3.5" fill="#1a1a2e"/>
+          <ellipse cx="76" cy="91" rx="3" ry="3.5" fill="#1a1a2e"/>
+          <ellipse cx="57" cy="90" rx="1" ry="1" fill="white"/>
+          <ellipse cx="77" cy="90" rx="1" ry="1" fill="white"/>
+          <!-- Eyelashes -->
+          <path d="M50 86 L52 83" stroke="#1a1a2e" stroke-width="1.2"/>
+          <path d="M55 85 L55 82" stroke="#1a1a2e" stroke-width="1.2"/>
+          <path d="M60 86 L62 83" stroke="#1a1a2e" stroke-width="1.2"/>
+          <path d="M70 86 L72 83" stroke="#1a1a2e" stroke-width="1.2"/>
+          <path d="M75 85 L75 82" stroke="#1a1a2e" stroke-width="1.2"/>
+          <path d="M80 86 L78 83" stroke="#1a1a2e" stroke-width="1.2"/>
+          <!-- Smile -->
+          <path d="M56 104 Q65 114 74 104" stroke="#c0726a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <!-- Cheeks -->
+          <ellipse cx="44" cy="99" rx="7" ry="5" fill="#f8a4a0" opacity="0.5"/>
+          <ellipse cx="86" cy="99" rx="7" ry="5" fill="#f8a4a0" opacity="0.5"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Bar -->
+<div class="stats-bar" id="about">
+  <div class="stat-item fade-up">
+    <div class="stat-number" data-count="50">0</div>
+    <div class="stat-label">Active Policies</div>
+  </div>
+  <div class="stat-item fade-up delay-1">
+    <div class="stat-number" data-count="120">0</div>
+    <div class="stat-label">Lakh Beneficiaries</div>
+  </div>
+  <div class="stat-item fade-up delay-2">
+    <div class="stat-number" data-count="5">0</div>
+    <div class="stat-label">Policy Categories</div>
+  </div>
+  <div class="stat-item fade-up delay-3">
+    <div class="stat-number" data-count="28">0</div>
+    <div class="stat-label">States Covered</div>
+  </div>
+  <div class="stat-item fade-up delay-4">
+    <div class="stat-number" data-count="2024">0</div>
+    <div class="stat-label">Year Updated</div>
+  </div>
+</div>
+
+<!-- Search & Filter -->
+<section class="search-section" id="policies">
+  <h2 class="section-title fade-up">Find Your Policy</h2>
+  <p class="section-sub fade-up delay-1">Search across scholarships, skill programs, internships, digital initiatives & financial aid</p>
+  <div class="search-box fade-up delay-2">
+    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+    </svg>
+    <input type="text" id="searchInput" placeholder="Search policies, schemes, programs..." oninput="filterPolicies()"/>
+  </div>
+  <div class="filter-chips fade-up delay-3">
+    <button class="chip active" onclick="setFilter('all', this)">All</button>
+    <button class="chip" onclick="setFilter('scholarship', this)">🎓 Scholarships</button>
+    <button class="chip" onclick="setFilter('skill', this)">⚡ Skill Dev</button>
+    <button class="chip" onclick="setFilter('internship', this)">💼 Internships</button>
+    <button class="chip" onclick="setFilter('digital', this)">💻 Digital</button>
+    <button class="chip" onclick="setFilter('loan', this)">💰 Financial Aid</button>
+  </div>
+</section>
+
+<!-- Policies Grid -->
+<section class="policies-section">
+  <div class="policies-grid" id="policiesGrid"></div>
+  <div class="no-results" id="noResults" style="display:none">
+    <span class="emoji">🔍</span>
+    <p>No policies found for your search.</p>
+    <p style="font-size:0.85rem;margin-top:0.5rem">Try different keywords or clear the filter.</p>
+  </div>
+</section>
+
+<!-- Feature Strip -->
+<div class="feature-strip" id="resources">
+  <div class="feature-strip-inner">
+    <h2 class="section-title fade-up">Why StudentFirst?</h2>
+    <p class="section-sub fade-up delay-1">One portal. Every policy. Zero confusion.</p>
+    <div class="features-grid">
+      <div class="feature-item fade-up delay-1">
+        <div class="feature-icon" style="background:rgba(26,86,232,0.1)">🎯</div>
+        <h3>Curated & Verified</h3>
+        <p>All policies sourced directly from official government portals and verified for accuracy.</p>
+      </div>
+      <div class="feature-item fade-up delay-2">
+        <div class="feature-icon" style="background:rgba(0,184,163,0.1)">🔔</div>
+        <h3>Deadline Alerts</h3>
+        <p>Get notified before application deadlines so you never miss an opportunity.</p>
+      </div>
+      <div class="feature-item fade-up delay-3">
+        <div class="feature-icon" style="background:rgba(247,168,37,0.12)">🌐</div>
+        <h3>22+ Languages</h3>
+        <p>Content available in multiple Indian languages for greater accessibility.</p>
+      </div>
+      <div class="feature-item fade-up delay-4">
+        <div class="feature-icon" style="background:rgba(124,58,237,0.1)">📱</div>
+        <h3>Mobile Ready</h3>
+        <p>Access all policies from any device, anywhere across India with zero data compression.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="nav-logo">Student<span>First</span></span>
+        <p>An initiative to make government student welfare schemes accessible to every learner across Bharat. Built with 💙 for India's future.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Policies</h4>
+        <ul>
+          <li><a href="#">Scholarships</a></li>
+          <li><a href="#">Skill Development</a></li>
+          <li><a href="#">Internship Schemes</a></li>
+          <li><a href="#">Digital Education</a></li>
+          <li><a href="#">Financial Aid</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="https://scholarships.gov.in" target="_blank">NSP Portal</a></li>
+          <li><a href="https://www.nsdcindia.org" target="_blank">NSDC</a></li>
+          <li><a href="https://internship.aicte-india.org" target="_blank">AICTE Internship</a></li>
+          <li><a href="https://swayam.gov.in" target="_blank">SWAYAM</a></li>
+          <li><a href="https://vidyalakshmi.co.in" target="_blank">Vidya Lakshmi</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Feedback</a></li>
+          <li><a href="#">RTI</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 StudentFirst. Data sourced from Government of India portals.</p>
+      <p>Made with purpose for every student in Bharat 🇮🇳</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── DATA (Mock API) ──────────────────────────────────────────────
+const POLICIES = [
+  {
+    id: 1,
+    category: 'scholarship',
+    icon: '🎓',
+    title: 'National Scholarship Portal (NSP)',
+    description: 'Central hub for all government scholarship schemes — pre-matric, post-matric, and merit-cum-means awards for students from SC/ST/OBC and minority communities.',
+    eligibility: 'Indian nationals; family income below ₹2.5 lakh/year; enrolled in recognized institutions',
+    benefits: 'Up to ₹25,000/year; direct bank transfer; renewable annually',
+    levels: ['school', 'college', 'university'],
+    link: 'https://scholarships.gov.in',
+    color: 'scholarship'
+  },
+  {
+    id: 2,
+    category: 'scholarship',
+    icon: '🏅',
+    title: 'Prime Minister\'s Scholarship Scheme (PMSS)',
+    description: 'Merit-based scholarships for wards of Ex-Servicemen and coast guard personnel pursuing professional degrees in engineering, medicine, MBA and MCA.',
+    eligibility: 'Ward of Ex-Servicemen; min. 60% in Class 12; pursuing professional degree',
+    benefits: '₹2,500/month for boys; ₹3,000/month for girls',
+    levels: ['college', 'university'],
+    link: 'https://ksb.gov.in',
+    color: 'scholarship'
+  },
+  {
+    id: 3,
+    category: 'scholarship',
+    icon: '✨',
+    title: 'Inspire Scholarship (DST)',
+    description: 'Department of Science & Technology initiative to attract talented youth towards natural & basic sciences at post-secondary level.',
+    eligibility: 'Top 1% in Class 12 board exams; pursuing B.Sc. or integrated M.Sc. in natural sciences',
+    benefits: '₹80,000/year + ₹20,000 summer attachment allowance',
+    levels: ['college', 'university'],
+    link: 'https://inspire-dst.gov.in',
+    color: 'scholarship'
+  },
+  {
+    id: 4,
+    category: 'skill',
+    icon: '⚡',
+    title: 'Pradhan Mantri Kaushal Vikas Yojana (PMKVY)',
+    description: 'Flagship skill development scheme offering free short-term training in 300+ job roles across 30+ sectors. Includes placement support and monetary reward on certification.',
+    eligibility: 'Indian nationals aged 15–45; school dropout or working youth',
+    benefits: 'Free training + ₹8,000 reward + job placement assistance',
+    levels: ['school', 'college'],
+    link: 'https://pmkvyofficial.org',
+    color: 'skill'
+  },
+  {
+    id: 5,
+    category: 'skill',
+    icon: '🤖',
+    title: 'National AI Portal Training (NASSCOM)',
+    description: 'Government-backed AI & ML training modules through NASSCOM FutureSkills platform. Courses range from foundational to advanced levels.',
+    eligibility: 'Students enrolled in graduation or post-graduation; basic programming knowledge for advanced tracks',
+    benefits: 'Free online certification; industry-recognized badge; internship referrals',
+    levels: ['college', 'university'],
+    link: 'https://futureskills.nasscom.in',
+    color: 'skill'
+  },
+  {
+    id: 6,
+    category: 'skill',
+    icon: '🎨',
+    title: 'Skill India Digital Platform',
+    description: 'Unified digital skilling ecosystem offering 500+ courses in digital, vocational and entrepreneurship skills with gamified learning experience.',
+    eligibility: 'Any student or youth; open access; some courses need class 8+ pass',
+    benefits: 'Free courses; NSQF-aligned certificates; employer connect',
+    levels: ['school', 'college', 'university'],
+    link: 'https://skillindia.gov.in',
+    color: 'skill'
+  },
+  {
+    id: 7,
+    category: 'internship',
+    icon: '💼',
+    title: 'AICTE Internship Policy 2024',
+    description: 'Mandated internship framework by AICTE requiring technical institutions to provide structured industry internships. Students receive academic credit for internships.',
+    eligibility: 'Students at AICTE-approved technical institutions; any year',
+    benefits: 'Academic credits + stipend (₹5,000–₹25,000/month) + certificate',
+    levels: ['college', 'university'],
+    link: 'https://internship.aicte-india.org',
+    color: 'internship'
+  },
+  {
+    id: 8,
+    category: 'internship',
+    icon: '🏛️',
+    title: 'PM Internship Scheme 2024',
+    description: 'Landmark scheme providing 1 crore internship opportunities in top 500 companies over 5 years. Govt. provides ₹6,000/month stipend + one-time assistance.',
+    eligibility: 'Age 21–24; not in full-time employment or education; 500+ companies participating',
+    benefits: '₹6,000/month + ₹6,000 one-time; insurance cover; certificate',
+    levels: ['college', 'university'],
+    link: 'https://pminternship.mca.gov.in',
+    color: 'internship'
+  },
+  {
+    id: 9,
+    category: 'internship',
+    icon: '🔬',
+    title: 'CSIR Summer Research Training (SRTP)',
+    description: 'Council of Scientific & Industrial Research offers summer training in 38 national laboratories across India for science students.',
+    eligibility: 'Final year B.Sc./M.Sc. science students; CGPA 7.0+ or 70%+',
+    benefits: '₹10,000/month fellowship + lab access + mentorship from scientists',
+    levels: ['college', 'university'],
+    link: 'https://www.csir.res.in',
+    color: 'internship'
+  },
+  {
+    id: 10,
+    category: 'digital',
+    icon: '💻',
+    title: 'SWAYAM Free Online Courses',
+    description: 'Massive Open Online Courses (MOOCs) platform offering 2,000+ courses from IITs, IIMs, central universities — completely free with optional paid certification.',
+    eligibility: 'Open to all; any student or working professional; no age bar',
+    benefits: 'Free courses; ₹1,000–₹5,000 exam fee for certificate; credit transfer to college',
+    levels: ['school', 'college', 'university'],
+    link: 'https://swayam.gov.in',
+    color: 'digital'
+  },
+  {
+    id: 11,
+    category: 'digital',
+    icon: '📱',
+    title: 'DigiLocker for Students',
+    description: 'Government cloud-based document wallet enabling students to access, store and share academic certificates, marksheets digitally. Linked with CBSE, universities.',
+    eligibility: 'Indian citizen with Aadhaar; available to school and college students',
+    benefits: 'Secure digital document storage; instant verification; 1GB free storage',
+    levels: ['school', 'college', 'university'],
+    link: 'https://digilocker.gov.in',
+    color: 'digital'
+  },
+  {
+    id: 12,
+    category: 'digital',
+    icon: '🎮',
+    title: 'National Digital Library of India',
+    description: 'Single-window access to 6.5 crore+ learning resources — textbooks, videos, simulations — from 300+ sources including IITs, IISc, NPTEL.',
+    eligibility: 'Free registration; open to all students and educators',
+    benefits: 'Free access to 65M+ resources; works on mobile; offline reading mode',
+    levels: ['school', 'college', 'university'],
+    link: 'https://ndl.iitkgp.ac.in',
+    color: 'digital'
+  },
+  {
+    id: 13,
+    category: 'loan',
+    icon: '🏦',
+    title: 'Vidya Lakshmi Education Loan Portal',
+    description: 'Single portal to apply to multiple bank education loans simultaneously. Integrated with 40+ banks offering education loans at competitive rates with government subsidy.',
+    eligibility: 'Indian nationals; secured admission in recognized course; KYC documents',
+    benefits: 'Loans up to ₹1.5 crore; interest subsidy for EWS; no collateral up to ₹7.5 lakh',
+    levels: ['college', 'university'],
+    link: 'https://vidyalakshmi.co.in',
+    color: 'loan'
+  },
+  {
+    id: 14,
+    category: 'loan',
+    icon: '💚',
+    title: 'Central Sector Interest Subsidy (CSIS)',
+    description: 'Full interest subsidy during moratorium period for education loans taken by EWS students pursuing technical/professional courses from recognized institutions.',
+    eligibility: 'Family income ≤ ₹4.5 lakh/year; EWS category; IBA model education loan',
+    benefits: '100% interest subsidy during course + 12 months; direct to bank',
+    levels: ['college', 'university'],
+    link: 'https://www.canbankmf.com',
+    color: 'loan'
+  },
+  {
+    id: 15,
+    category: 'loan',
+    icon: '🌱',
+    title: 'Dr. Ambedkar Central Sector Scheme',
+    description: 'Interest subsidy for OBC and EBC students pursuing studies abroad, enabling access to world-class education without financial barriers.',
+    eligibility: 'OBC/EBC category; family income ≤ ₹8 lakh; studying abroad at master\'s level or higher',
+    benefits: 'Interest subsidy up to ₹20 lakh loan amount for overseas education',
+    levels: ['university'],
+    link: 'https://socialjustice.gov.in',
+    color: 'loan'
+  }
+];
+
+let activeFilter = 'all';
+
+// ── Render Cards ────────────────────────────────────────────────
+function getLevelLabel(level) {
+  const map = { school: 'School', college: 'College', university: 'University' };
+  return map[level] || level;
+}
+
+function createCard(policy, index) {
+  const levelBadges = policy.levels.map(l =>
+    `<span class="level-badge lvl-${l}">${getLevelLabel(l)}</span>`
+  ).join('');
+
+  const catLabels = {
+    scholarship: '🎓 Scholarship',
+    skill: '⚡ Skill Dev',
+    internship: '💼 Internship',
+    digital: '💻 Digital',
+    loan: '💰 Financial Aid'
+  };
+
+  const card = document.createElement('div');
+  card.className = `policy-card cat-${policy.color} scale-in`;
+  card.style.transitionDelay = `${(index % 6) * 0.08}s`;
+  card.innerHTML = `
+    <div class="card-header">
+      <span class="card-category-tag">${catLabels[policy.category]}</span>
+      <div class="card-icon">${policy.icon}</div>
+      <h3 class="card-title">${policy.title}</h3>
+      <p class="card-desc">${policy.description}</p>
+    </div>
+    <div class="card-body">
+      <div class="card-divider"></div>
+      <div class="info-row">
+        <span class="info-label">Eligibility</span>
+        <span class="info-value">${policy.eligibility}</span>
+      </div>
+      <div class="info-row" style="margin-top:0.5rem">
+        <span class="info-label">Benefits</span>
+        <span class="info-value">${policy.benefits}</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="level-badges">${levelBadges}</div>
+      <a href="${policy.link}" target="_blank" class="apply-btn ripple-container" onclick="showToast()">Apply Now</a>
+    </div>
+  `;
+  return card;
+}
+
+function renderPolicies(filtered) {
+  const grid = document.getElementById('policiesGrid');
+  const noResults = document.getElementById('noResults');
+  grid.innerHTML = '';
+  if (filtered.length === 0) {
+    noResults.style.display = 'block';
+    return;
+  }
+  noResults.style.display = 'none';
+  filtered.forEach((p, i) => {
+    const card = createCard(p, i);
+    grid.appendChild(card);
+  });
+  // Trigger animations after append
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.policy-card.scale-in').forEach(el => {
+      setTimeout(() => el.classList.add('visible'), 50);
+    });
+  });
+  addRippleToButtons();
+}
+
+function filterPolicies() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  let filtered = POLICIES;
+  if (activeFilter !== 'all') {
+    filtered = filtered.filter(p => p.category === activeFilter);
+  }
+  if (q) {
+    filtered = filtered.filter(p =>
+      p.title.toLowerCase().includes(q) ||
+      p.description.toLowerCase().includes(q) ||
+      p.eligibility.toLowerCase().includes(q) ||
+      p.benefits.toLowerCase().includes(q)
+    );
+  }
+  renderPolicies(filtered);
+}
+
+function setFilter(cat, btn) {
+  activeFilter = cat;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  filterPolicies();
+}
+
+// ── Toast ────────────────────────────────────────────────────────
+function showToast() {
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ── Dark Mode ────────────────────────────────────────────────────
+function toggleDark() {
+  const html = document.documentElement;
+  const btn = document.getElementById('themeBtn');
+  if (html.getAttribute('data-theme') === 'dark') {
+    html.removeAttribute('data-theme');
+    btn.textContent = '🌙 Dark';
+  } else {
+    html.setAttribute('data-theme', 'dark');
+    btn.textContent = '☀️ Light';
+  }
+}
+
+// ── Custom Cursor ────────────────────────────────────────────────
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+
+function animRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  cursorRing.style.left = rx + 'px';
+  cursorRing.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+
+document.querySelectorAll('a,button,.chip,.policy-card,.apply-btn').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+});
+
+// ── Ripple Effect ────────────────────────────────────────────────
+function addRippleToButtons() {
+  document.querySelectorAll('.ripple-container').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      const r = document.createElement('span');
+      r.classList.add('ripple');
+      const rect = this.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      r.style.width = r.style.height = size + 'px';
+      r.style.left = e.clientX - rect.left - size / 2 + 'px';
+      r.style.top = e.clientY - rect.top - size / 2 + 'px';
+      this.appendChild(r);
+      setTimeout(() => r.remove(), 600);
+    });
+  });
+}
+
+// ── Intersection Observer (scroll animations) ────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.fade-up, .slide-in-left, .scale-in').forEach(el => observer.observe(el));
+
+// ── Counter Animation ────────────────────────────────────────────
+function animateCount(el, target, suffix='') {
+  const duration = 1500;
+  const start = performance.now();
+  function tick(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(ease * target) + suffix;
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const counters = e.target.querySelectorAll('[data-count]');
+      counters.forEach(c => {
+        const target = +c.getAttribute('data-count');
+        const suffix = target === 2024 ? '' : (c.closest('.stat-item')?.querySelector('.stat-label')?.textContent.includes('Lakh') ? 'L+' : '+');
+        animateCount(c, target, suffix === 'L+' ? 'L+' : (target < 100 ? '+' : ''));
+      });
+      statsObserver.disconnect();
+    }
+  });
+}, { threshold: 0.5 });
+statsObserver.observe(document.querySelector('.stats-bar'));
+
+// ── Back to Top ──────────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('backTop');
+  if (window.scrollY > 400) btn.classList.add('visible');
+  else btn.classList.remove('visible');
+});
+
+// ── Parallax ────────────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  document.querySelectorAll('.p-shape').forEach((el, i) => {
+    const speed = 0.05 + i * 0.03;
+    el.style.transform = `translateY(${scrollY * speed}px)`;
+  });
+});
+
+// ── Init ─────────────────────────────────────────────────────────
+renderPolicies(POLICIES);
+addRippleToButtons();
+
+// Re-observe newly added cards after render
+setTimeout(() => {
+  document.querySelectorAll('.scale-in:not(.visible)').forEach(el => observer.observe(el));
+  document.querySelectorAll('a,button,.chip,.policy-card,.apply-btn').forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+  });
+}, 100);
+</script>
+</body>
+</html>
